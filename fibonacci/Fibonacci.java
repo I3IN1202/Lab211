@@ -10,27 +10,14 @@ public class Fibonacci {
     
     public static void main(String[] args) {
            System.out.println("The 45 sequence fibonacci: ");
-           for (int i = 0; i < 45; i++){
-               System.out.print(fibonacci(i) + " ");
-           }       
+//           for (int i = 0; i < 45; i++){
+               fibonacci(45, 1, 0);
+ //          }       
 }
-    public static int fibonacci(int n){
-        long f0 = 0;
-        long f1 = 1;
-        long fn = 1;
-     
-        if (n == 0){
-            return 0;
-        } else if (n == 1){
-            return 1;
-        } else {
-            for (int i = 2 ; i < n; i++){
-                f0 = f1;
-                f1 = fn;
-                fn = f0 + f1;
-            }
-        }
-        return (int) fn;
+    public static int fibonacci(int n, int f1, int f2){
+        if (n < 2) 
+            return f2;
+        System.out.println(f2);
+        return fibonacci(n-1, f2, f1 + f2);
     }
 }
-
