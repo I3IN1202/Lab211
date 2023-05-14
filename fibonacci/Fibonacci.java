@@ -16,7 +16,7 @@ public class Fibonacci {
 }
     public static int fibonacci(int n, int f1, int f2){
         if (n < 2) 
-            return f2;
+            return n;
         System.out.println(f2);
         return fibonacci(n-1, f2, f1 + f2);
     }
