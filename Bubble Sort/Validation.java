@@ -12,18 +12,22 @@ import java.util.Scanner;
  * @author Minh Huy
  */
 public class Validation {
+
     private static Scanner sc = new Scanner(System.in);
-    static int getInt(){
+
+    static int getInt() {
         int n;
-        while (true){
+        while (true) {
             try {
                 n = Integer.parseInt(sc.nextLine());
-                return n;
-            } catch (NumberFormatException e){
-                   System.out.println("Please enter integer!");
+                if (n <= 0) {
+                    throw new NumberFormatException();
+                }
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter positive integer!");
             }
-        } 
-        
-//        return n;
+        }
+        return n;
     }
 }
