@@ -21,22 +21,24 @@ public class BubbleSort {
         }
     }
 
-    private static int[] createArrray(int size) {
+    public static int[] createArrray(int size) {
         int[] a = new int[size];
         Random rd = new Random();
         for (int i = 0; i < size; i++) {
-            a[i] = rd.nextInt(100);
+            a[i] = rd.nextInt(10);
         }
         return a;
     }
 
-    private static void display(int[] a) {
+    public static void display(int[] a) {
+        System.out.print("[");
         for (int i = 0; i < a.length; i++) {
             if (i < a.length - 1) {
                 System.out.print(a[i] + ", ");
             } else {
                 System.out.print(a[i]);
-            }
+                System.out.println("]");
+            } 
         }
     }
 
