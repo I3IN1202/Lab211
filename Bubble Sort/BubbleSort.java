@@ -2,6 +2,7 @@ package bubble.sort;
 
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Arrays;
 
 /**
  *
@@ -9,7 +10,7 @@ import java.util.Scanner;
  */
 public class BubbleSort {
 
-    static void BubbleSort(int[] a) {
+    public static void BubbleSort(int[] a) {
         for (int i = 0; i < a.length - 1; i++) {
             for (int j = 0; j < a.length - 1 - i; j++) {
                 if (a[j] > a[j + 1]) {
@@ -21,39 +22,51 @@ public class BubbleSort {
         }
     }
 
-    public static int[] createArrray(int size) {
+    public static int[] randomArrray(int size) {
         int[] a = new int[size];
         Random rd = new Random();
         for (int i = 0; i < size; i++) {
-            a[i] = rd.nextInt(10);
+            a[i] += rd.nextInt(size);
         }
         return a;
     }
 
-    public static void display(int[] a) {
-        System.out.print("[");
-        for (int i = 0; i < a.length; i++) {
-            if (i < a.length - 1) {
-                System.out.print(a[i] + ", ");
-            } else {
-                System.out.print(a[i]);
-                System.out.println("]");
-            } 
-        }
+    
+    public static void displayArray(String request, int[] a) {
+        System.out.print(request);
+        System.out.println(Arrays.toString(a));
     }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        System.out.print("Enter number of array: ");
-        int n = Validation.getInt();
-        int[] a = createArrray(n);
+        System.out.print("Enter number of array: \n");
+        int n = getInt();
+        int[] a = randomArrray(n);
 
-        System.out.println("Unsorted array: ");
-        display(a);
+        
+//        System.out.print("Unsorted array: ");
+        displayArray("Unsorted array: ",a);
 
-        System.out.println("\nSorted Array: ");
+//        System.out.print("Sorted Array: ");
         BubbleSort(a);
-        display(a);
+        displayArray("Sorted array: ",a);
 
+    }
+
+        public static int getInt() {
+        Scanner sc = new Scanner(System.in);
+        int n;
+        while (true) {
+            try {
+                n = Integer.parseInt(sc.nextLine());
+                if (n <= 0) {
+                    throw new NumberFormatException();
+                }
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter positive integer!");
+            }
+        }
+        return n;
     }
 }
