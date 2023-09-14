@@ -49,15 +49,18 @@ public class LinearSearch {
         return a;
     }
     
-    public static int linearSearch(int [] a, int m){
-        Scanner sc = new Scanner(System.in);
-        for (int i = 0; i < a.length; i++) {
-            if (a[i] == m){
-                System.out.println("Found " + m + " at index: " + i);
-            }
+    public static void linearSearch(int[] a, int m) {
+    boolean check = false;
+    for (int i = 0; i < a.length; i++) {
+        if (a[i] == m) {
+            System.out.println("Found " + m + " at index: " + i);
+            check = true;
         }
-        return -1;
     }
+        if (!check) {
+        System.out.println("Not found in array!");
+    }
+}
     
     private static void displayArray(String request, int[] a){
         System.out.print(request);
