@@ -24,7 +24,7 @@ public class BinarySearch {
         int x = getInt("Enter search value: ");
         displayArray("Sorted array: ", a);
         int m = a.length;
-        binarySearch(a, x, 0, n-1);
+        binarySearch(a, x, 0, m-1);
     }
 
     public static int getInt(String request) {
