@@ -81,8 +81,6 @@ public class SalaryHistory {
 
     @Override
     public String toString() {
-        return String.format("%s %-7.5s %-15s %-10s %-10s %-10d", id,name,age,updateSalary,status,date);
-    }
-    
-    
+        return String.format("%s | %-7.5s | %2d | %-7.5f | %-4s | %-10s", id,name,age,updateSalary,status,date);
+    }   
 }
