@@ -71,9 +71,6 @@ public class Worker {
 
     @Override
     public String toString() {
-        return String.format("%s | %-15s | %-10s | %-15s | %-15d ", id, name, age, salary,workLocation );
+        return String.format("%s | %-15s | %2d | %-7.1f | %-15s ", id, name, age, salary,workLocation );
     }
-
-    
-    
 }
