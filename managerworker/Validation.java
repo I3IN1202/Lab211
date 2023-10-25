@@ -69,12 +69,27 @@ public class Validation {
             s = sc.nextLine();
             if (!s.isEmpty()) {
                 if ((mode == 1 && getWorker(s, wList) == null)
-                        || (mode == 2 && getWorker(s, wList) == null)) {
+                        || (mode == 2 && getWorker(s, wList) != null)) {
                     break;
                 }
                 System.err.println(err);
             }
         }
         return s;
+    }
+    
+    String inputString(String msg) {
+        Scanner sc = new Scanner(System.in);
+        String input;
+        do {
+            System.out.print(msg);
+            input = sc.nextLine();
+            if(input.isEmpty()) {
+                System.out.println("Input cannot be empty. Try again!");
+                continue;
+            }
+            break;
+        } while (true);
+        return input;
     }
 }
