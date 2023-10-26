@@ -16,9 +16,6 @@ public class Main {
         Display display = new Display();
         GetUserInputData getData = new GetUserInputData();
         ArrayList<Student> listStudent = new ArrayList<>();
-        //Step 1: User enter student
-        getData.inputStudent(listStudent);
-        //Step 2: Display result
-        display.displayResult(listStudent);
+        display.display();
     }
 }
