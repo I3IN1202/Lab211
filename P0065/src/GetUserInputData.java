@@ -81,24 +81,4 @@ public class GetUserInputData {
         } while (true);
         return input;
     }
-    
-    void inputStudent(ArrayList<Student> listStudent) {
-        System.out.println("====== Management Student Program ======");
-        //loop used to let user enter student data
-        do {            
-            String name = inputString("Name:");
-            String classes = inputString("Classes:");
-            double mathsPoint = inputDouble("Maths:", "Maths", 0, 10);
-            double chemistryPoint = inputDouble("Chemistry:", "Chemistry", 0, 10);
-            double physicsPoint = inputDouble("Physics:", "Physics", 0, 10);
-            Student newStudent = new Student(name, classes, mathsPoint, chemistryPoint, physicsPoint);
-            listStudent.add(newStudent);
-            String userDecision = inputYN("Do you want to enter more student information?(Y/N):");
-            //compare equality of userDecision with N
-            if(userDecision.equals("N")) {
-                break;
-            }
-        } while (true);
-    }
-
 }
