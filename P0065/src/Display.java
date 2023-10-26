@@ -14,26 +14,30 @@ import java.util.Map;
  * @author Admin
  */
 public class Display {
+    GetUserInputData data = new GetUserInputData();
+    Classification classifier = new Classification();
 
-    void displayResult(ArrayList<Student> listStudent) {
-        Classification classifier = new Classification();
-        HashMap<Student, String> classifiedList = classifier.classifyStudent(listStudent);
-        HashMap<String, Double> statistic = classifier.getPercentTypeStudent(listStudent);
-        //loop used to access each student in list
-        for (Student student : listStudent) {
-            System.out.println("------ Student" + (listStudent.indexOf(student) + 1) + " Info ------");
-            System.out.println("Name:" + student.getName());
-            System.out.println("Classes:" + student.getClasses());
-            System.out.printf("AVG:%.1f\n", (student.getChemistryPoint() + student.getMathPoint() + student.getPhysicsPoint())/3);
-            System.out.println("Type:" + classifiedList.get(student));
-        }
+    void display() {
+        ArrayList<Student> ls = new ArrayList<>();
+        classifier.createStudent(ls);
+        displayInformationStudent(ls);
+        HashMap<String, Double> getPercentTypeStudent = classifier.getPercentTypeStudent(ls);
         System.out.println("--------Classification Info -----");
-        //loop used to access each map entry in statistic
-        for (Map.Entry<String, Double> entry : statistic.entrySet()) {
-            String type = entry.getKey();
-            Double percent = entry.getValue();
-            System.out.println(type + ": " + (percent * 100) + "%");
+        for (Map.Entry<String, Double> entry : getPercentTypeStudent.entrySet()) {
+            String key = entry.getKey();
+            Double value = entry.getValue();
+            System.out.println(key + ": " + (value * 100) + "%");
         }
     }
     
+    void displayInformationStudent(ArrayList<Student> ls){
+        int i = 0;
+        for (Student o : ls) {
+            System.out.println("------Student " + (++i) + " info-------");
+            System.out.println("Name: " + o.name);
+            System.out.println("Classes: " + o.Classes);
+            System.out.println("AVG: " + (o.getChemistryPoint() + o.getMathPoint() + o.getPhysicsPoint())/3);
+            System.out.println("Type: " + o.getType());
+        }
+    }
 }
