@@ -12,17 +12,20 @@ public class Student {
     String name;
     String Classes;
     double mathPoint, chemistryPoint, physicsPoint;
+    char type;
 
     public Student() {
     }
 
-    public Student(String name, String Class, double mathPoint, double chemistryPoint, double physicsPoint) {
+    public Student(String name, String Classes, double mathPoint, double chemistryPoint, double physicsPoint, char type) {
         this.name = name;
-        this.Classes = Class;
+        this.Classes = Classes;
         this.mathPoint = mathPoint;
         this.chemistryPoint = chemistryPoint;
         this.physicsPoint = physicsPoint;
+        this.type = type;
     }
+
 
     public String getName() {
         return name;
@@ -64,5 +67,12 @@ public class Student {
     public void setPhysicsPoint(double physicsPoint) {
         this.physicsPoint = physicsPoint;
     }
-    
+
+    public char getType() {
+        return type;
+    }
+
+    public void setType(char type) {
+        this.type = type;
+    }   
 }
