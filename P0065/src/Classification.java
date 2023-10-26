@@ -14,61 +14,64 @@ import java.util.HashMap;
  */
 public class Classification {
     
-    HashMap<Student, String> classifyStudent (ArrayList<Student> listStudent) {
-        HashMap<Student, String> classifiedList = new HashMap<>();
-        //loop used to access each student in list
-        for (Student student : listStudent) {
-            double avg = (student.getChemistryPoint() + student.getMathPoint() + student.getPhysicsPoint()) / 3;
-            String type;
-            //compare less than avg with 4
-            if(avg < 4) {
-                type = "D";
-            }//check avg in range of 4 to less than 6
-            else if (4 <= avg && avg < 6) {
-                type = "C";
-            }//check avg in range of 6 to 7.5
-            else if (6 <= avg && avg <= 7.5){
-                type = "B";
+    GetUserInputData data = new GetUserInputData();
+    
+    void createStudent(ArrayList<Student> listStudent) {
+        
+        System.out.println("====== Management Student Program ======");
+        //loop used to let user enter student data
+        do {            
+            String name = data.inputString("Name:");
+            String classes = data.inputString("Classes:");
+            double maths = data.inputDouble("Maths:", "Maths", 0, 10);
+            double chemistry = data.inputDouble("Chemistry:", "Chemistry", 0, 10);
+            double physics = data.inputDouble("Physics:", "Physics", 0, 10);
+            double avg = (maths + chemistry + physics)/3;
+            char type;
+            if (avg > 7.5) {
+                type = 'A';
+            } else if (avg >= 6 && avg <= 7.5) {
+                type = 'B';
+            } else if (avg >= 4 && avg < 6) {
+                type = 'C';
+            } else {
+                type = 'D';
             }
-            else {
-                type = "A";
+            listStudent.add(new Student(name, classes, maths, chemistry, physics, type));
+            String userDecision = data.inputYN("Do you want to enter more student information?(Y/N):");
+            //compare equality of userDecision with N
+            if(userDecision.equals("N")) {
+                break;
             }
-            classifiedList.put(student, type);
-        }
-        return classifiedList;
+        } while (true);
     }
     
-    
     HashMap<String, Double> getPercentTypeStudent (ArrayList<Student> listStudent) {
-        HashMap<Student, String> classifiedList = classifyStudent(listStudent);
-        HashMap<String, Double> statistic = new HashMap<>();
+        HashMap<String, Double> getPercentTypeStudent = new HashMap<>();
         double numberOfTypeA = 0;
         double numberOfTypeB = 0;
         double numberOfTypeC = 0;
         double numberOfTypeD = 0;
         //loop used to access each student in list
-        for (Student student : listStudent) {
-            String type = classifiedList.get(student);
-            //check value of type
-            switch(type) {
-                case "A":
-                    numberOfTypeA++;
-                    break;
-                case "B":
-                    numberOfTypeB++;
-                    break;
-                case "C":
-                    numberOfTypeC++;
-                    break;
-                default:
-                    numberOfTypeD++;
+        for (int i = 0; i < listStudent.size(); i++) {
+            if (listStudent.get(i).getType() == 'A') {
+                numberOfTypeA++;
+            }
+            if (listStudent.get(i).getType() == 'B') {
+                numberOfTypeB++;
+            }
+            if (listStudent.get(i).getType() == 'C') {
+                numberOfTypeC++;
+            }
+            if (listStudent.get(i).getType() == 'D') {
+                numberOfTypeD++;
             }
         }
-        statistic.put("A", numberOfTypeA / listStudent.size());
-        statistic.put("B", numberOfTypeB / listStudent.size());
-        statistic.put("C", numberOfTypeC / listStudent.size());
-        statistic.put("D", numberOfTypeD / listStudent.size());
-        return statistic;
+        getPercentTypeStudent.put("A", numberOfTypeA / listStudent.size());
+        getPercentTypeStudent.put("B", numberOfTypeB / listStudent.size());
+        getPercentTypeStudent.put("C", numberOfTypeC / listStudent.size());
+        getPercentTypeStudent.put("D", numberOfTypeD / listStudent.size());
+        return getPercentTypeStudent;
     }
     
 }
