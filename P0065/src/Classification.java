@@ -1,6 +1,7 @@
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -15,6 +16,7 @@ import java.util.HashMap;
 public class Classification {
     
     GetUserInputData data = new GetUserInputData();
+    ArrayList<Student> listStudent = new ArrayList<>();
     
     void createStudent(ArrayList<Student> listStudent) {
         
@@ -26,24 +28,38 @@ public class Classification {
             double maths = data.inputDouble("Maths:", "Maths", 0, 10);
             double chemistry = data.inputDouble("Chemistry:", "Chemistry", 0, 10);
             double physics = data.inputDouble("Physics:", "Physics", 0, 10);
-            double avg = (maths + chemistry + physics)/3;
-            char type;
-            if (avg > 7.5) {
-                type = 'A';
-            } else if (avg >= 6 && avg <= 7.5) {
-                type = 'B';
-            } else if (avg >= 4 && avg < 6) {
-                type = 'C';
-            } else {
-                type = 'D';
-            }
-            listStudent.add(new Student(name, classes, maths, chemistry, physics, type));
+//            double avg = (maths + chemistry + physics)/3;
+//            char type = 'A';
+//            if (avg > 7.5) {
+//                type = 'A';
+//            } else if (avg >= 6 && avg <= 7.5) {
+//                type = 'B';
+//            } else if (avg >= 4 && avg < 6) {
+//                type = 'C';
+//            } else {
+//                type = 'D';
+//            }
+            listStudent.add(new Student(name, classes, maths, chemistry, physics, 'A'));
             String userDecision = data.inputYN("Do you want to enter more student information?(Y/N):");
-            //compare equality of userDecision with N
             if(userDecision.equals("N")) {
                 break;
             }
         } while (true);
+    }
+    
+    void averangeStudent (ArrayList<Student> listStudent){
+        for (Student o : listStudent) {
+            double avg = (o.getChemistryPoint() + o.getMathPoint() + o.getPhysicsPoint())/3;
+            if (avg > 7.5) {
+                o.setType('A');
+            } else if (avg >= 6 && avg <= 7.5) {
+                o.setType('B');
+            } else if (avg >= 4 && avg < 6) {
+                o.setType('C');
+            } else {
+               o.setType('D');
+            }
+        }
     }
     
     HashMap<String, Double> getPercentTypeStudent (ArrayList<Student> listStudent) {
@@ -74,4 +90,27 @@ public class Classification {
         return getPercentTypeStudent;
     }
     
+    void display() {
+        createStudent(listStudent);
+        averangeStudent(listStudent);
+        displayInformationStudent(listStudent);
+        HashMap<String, Double> getPercentTypeStudent = getPercentTypeStudent(listStudent);
+        System.out.println("--------Classification Info -----");
+        for (Map.Entry<String, Double> entry : getPercentTypeStudent.entrySet()) {
+            String key = entry.getKey();
+            Double value = entry.getValue();
+            System.out.println(key + ": " + (value * 100) + "%");
+        }
+    }
+    
+    void displayInformationStudent(ArrayList<Student> listStudent){
+        int i = 0;
+        for (Student o : listStudent) {
+            System.out.println("------Student " + (++i) + " info-------");
+            System.out.println("Name: " + o.name);
+            System.out.println("Classes: " + o.Classes);
+            System.out.println("AVG: " + (o.getChemistryPoint() + o.getMathPoint() + o.getPhysicsPoint())/3);
+            System.out.println("Type: " + o.getType());
+        }
+    }
 }
