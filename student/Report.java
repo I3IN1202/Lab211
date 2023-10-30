@@ -46,7 +46,9 @@ public class Report {
     public void setTotalCourse(int totalCourse) {
         this.totalCourse = totalCourse;
     }
-    
-    
-    
+
+    @Override
+    public String toString() {
+        return  String.format("%-15s|%-15s|%-5d\n", studentName, courseName, totalCourse);
+    }
 }
