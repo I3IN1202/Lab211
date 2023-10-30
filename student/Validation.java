@@ -19,7 +19,7 @@ public class Validation {
     int checkInputLimit(int min, int max){
         while(true){
             try {
-                int choice = sc.nextInt();
+                int choice = Integer.parseInt(sc.nextLine());
                 if (choice < min || choice > max) {
                     throw new NumberFormatException();
                 }
@@ -83,8 +83,7 @@ public class Validation {
             String result = sc.nextLine();
             if (result.equalsIgnoreCase("java") 
                     || result.equalsIgnoreCase(".net")
-                    || result.equalsIgnoreCase("c")
-                    || result.equalsIgnoreCase("c++")){
+                    || result.equalsIgnoreCase("c/c++")){
                 return result;
             }
             System.err.println("There are only three course: Java, .Net, C/C++");
