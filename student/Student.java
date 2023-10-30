@@ -63,8 +63,8 @@ class Student implements Comparable<Student>{
         return t.studentName.compareTo(this.studentName);
     }
 
-    public void print(){
-        System.out.printf("%-15s%-15s%-15s\n", studentName, semester, courseName);
+    @Override
+    public String toString() {
+        return String.format("%-5s%-15s%-15s%-15s\n", id, studentName, semester, courseName);
     }
-    
 }
