@@ -31,12 +31,8 @@ public class Manage {
         String name, semester, course;
         
         while (true) {
-            String id = validation.checkInputString("Enter id: ");
-            if (validation.checkIdExist(ls, id)) {
-                System.out.println("Code is existed try again!");
-                continue;
-            }
             
+            String id = validation.checkInputString("Enter id: ");
             name = validation.checkInputString("Enter name: ");
             semester = validation.checkInputString("Enter semester: ");
             course = validation.checkInputCourse("Enter course: ");
@@ -47,7 +43,7 @@ public class Manage {
                 System.out.println("It is existed");
             }
             
-            if (ls.size() > 10) {
+            if (ls.size() >= 10) {
                 String yesorno = validation.inputYN("Do you want to continue(Y/N):");
                 if (yesorno.equals("N")) {
                     break;
@@ -56,17 +52,18 @@ public class Manage {
         }
     }
 
-    ArrayList<Student> listStudentFindByName(ArrayList<Student> ls) {
+    ArrayList<Student> listStudentFindByName(ArrayList<Student> listStudent) {
         ArrayList<Student> listStudentFindByName = new ArrayList<>();
         String name = validation.checkInputString("Enter name to search: ");
-        for (Student student : ls) {
+        for (Student student : listStudent) {
             if (student.getStudentName().contains(name)) {
+                System.out.println("ok");
                 listStudentFindByName.add(student);
             }
         }
         return listStudentFindByName;
     }
-
+    //không in ra list
     void findAndSort() {
         if (ls.isEmpty()) {
             System.out.println("List empty.");
@@ -95,7 +92,7 @@ public class Manage {
             count++;
         }
         System.out.print("Enter student: ");
-        int choice = validation.checkInputLimit(1, listStudentFindByName.size());
+        int choice = validation.checkInputLimit(0, listStudentFindByName.size());
         return listStudentFindByName.get(choice);
     }
 
@@ -144,17 +141,18 @@ public class Manage {
         }
     }
 
+    //
     void report() {
         if (ls.isEmpty()) {
             System.err.println("List empty");
             return;
         }
 
-        int size = lr.size();
+        int size = ls.size();
 
         for (int i = 0; i < size; i++) {
-            int total = 0;
             for (Student student1 : ls) {
+                int total = 0;
                 for (Student student2 : ls) {
                     if (student1.getId().equalsIgnoreCase(student2.getId())
                             && student1.getCourseName().equalsIgnoreCase(student2.getCourseName())) {
@@ -168,8 +166,21 @@ public class Manage {
         }
 
         for (Report report : lr) {
+            System.out.println("----Report----");
             System.out.println(report);
         }
+    }
+    
+    void test(){
+        ls.add(new Student("1", "Pham Hoa", "Spring", "java"));
+        ls.add(new Student("2", "Do Hiep", "Summer", ".net"));
+        ls.add(new Student("3", "Nguyen huy", "Spring", "c/c++"));
+        ls.add(new Student("4", "Pham uyên", "Spring", "java"));
+        ls.add(new Student("5", "Do Quang", "Summer", ".net"));
+        ls.add(new Student("6", "Nguyen vanh", "Spring", "c/c++"));
+        ls.add(new Student("7", "Pham Trường", "Spring", "java"));
+        ls.add(new Student("8", "Do hải", "Summer", ".net"));
+        ls.add(new Student("9", "Nguyen anh", "Spring", "c/c++"));
     }
 
     void displayAll() {
