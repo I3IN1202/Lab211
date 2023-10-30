@@ -14,11 +14,12 @@ import java.util.Scanner;
  */
 public class Validation {
     Scanner sc = new Scanner(System.in);
+    ArrayList<Student> ls = new ArrayList();
     
     int checkInputLimit(int min, int max){
         while(true){
             try {
-                int choice = Integer.getInteger(sc.nextLine().trim());
+                int choice = sc.nextInt();
                 if (choice < min || choice > max) {
                     throw new NumberFormatException();
                 }
@@ -30,7 +31,8 @@ public class Validation {
         }
     }
     
-    String checkInputString(){
+    String checkInputString(String msg){
+        System.out.println(msg);
         while (true){
             String result = sc.nextLine().trim();
             if (result.isEmpty()){
@@ -42,23 +44,28 @@ public class Validation {
         }
     }
     
-    boolean checkInputYN(){
-        while (true) {            
-            String result = checkInputString();
-            if (result.equalsIgnoreCase("Y")){
-                return true;
+    String inputYN(String msg) {
+        Scanner sc = new Scanner(System.in);
+        String input;
+        do {    
+            System.out.print(msg);
+            input = sc.nextLine();
+            if (input.isEmpty()) {
+                System.out.println("Input cannot be empty! try again");
+                continue;
             }
-            if (result.equalsIgnoreCase("N")) {
-                return false;
+            else if (!input.equals("Y") && !input.equals("N")){
+                System.out.println("Input must be Y or N! Try again!");
             }
-            System.err.println("Please input Y or N");
-            System.out.println("Enter again: ");
-        }
+            break;
+        } while (true);
+        return input;
     }
     
-    boolean checkInputUD(){
-        while (true) {            
-            String result = checkInputString();
+    boolean checkInputUD(String msg){
+        System.out.println(msg);
+        while (true) {   
+            String result = sc.nextLine();
             if (result.equalsIgnoreCase("U")){
                 return true;
             }
@@ -70,22 +77,24 @@ public class Validation {
         }
     }
     
-    String checkInputCourse(){
-        while (true) {            
-            String result = checkInputString();
+    String checkInputCourse(String msg){
+        System.out.print(msg);
+        while (true) {  
+            String result = sc.nextLine();
             if (result.equalsIgnoreCase("java") 
                     || result.equalsIgnoreCase(".net")
-                    || result.equalsIgnoreCase("c/c++")){
+                    || result.equalsIgnoreCase("c")
+                    || result.equalsIgnoreCase("c++")){
                 return result;
             }
             System.err.println("There are only three course: Java, .Net, C/C++");
-            System.out.println("Enter again: ");
+            System.out.print("Enter again: ");
         }
     }
     
-    boolean checkStudent(ArrayList<Student> list, String id, String studentName, String semester, String courseName){
-        int size = list.size();
-        for (Student student : list) {
+    boolean checkStudent(ArrayList<Student> ls, String id, String studentName, String semester, String courseName){
+        int size = ls.size();
+        for (Student student : ls) {
             if (id.equalsIgnoreCase(student.getId()) 
                     && studentName.equalsIgnoreCase(student.getStudentName())
                     && semester.equalsIgnoreCase(student.getSemester())
@@ -107,13 +116,12 @@ public class Validation {
         return true;
     }
     
-    boolean checkID(ArrayList<Student> list, String id, String studentName){
-        for (Student student : list) {
-            if(id.equalsIgnoreCase(student.getId())
-                    && !studentName.equalsIgnoreCase(student.getStudentName())){
-                return false;
-            }
-        }
-        return true;
+    boolean checkIdExist(ArrayList<Student> ls ,String id) {
+    for (Student student : ls) {
+      if (id.equalsIgnoreCase(student.getId())) {
+          return true;
+      }
     }
+    return false;
+  }
 }
