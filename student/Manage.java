@@ -13,7 +13,12 @@ import java.util.Collections;
  * @author ADMIN
  */
 public class Manage {
-    void menu(){
+
+    ArrayList<Report> lr = new ArrayList<>();
+    ArrayList<Student> ls = new ArrayList<>();
+    Validation validation = new Validation();
+
+    void menu() {
         System.out.println("1. Create");
         System.out.println("2. Find and Sort");
         System.out.println("3. Update/Delete");
@@ -21,72 +26,68 @@ public class Manage {
         System.out.println("5. Exit");
         System.out.println("Enter your choice: ");
     }
-    Validation validation = new Validation();
-    
-    //Allow users create new student
-    void createStudent(int count, ArrayList<Student> list){
-        if(count > 10){
-            System.out.print("Do you want to continue (Y/N): ");
-            if (!validation.checkInputYN()) {
-                return;
-            }
-        }
-        while (true) {            
-            System.out.print("Enter id: ");
-            String id = validation.checkInputString();
-            System.out.print("Enter name student: ");
-            String name = validation.checkInputString();
-            if (!validation.checkID(list, id, name)) {
-                System.err.println("Id has exist student. Please re-input");
+
+    void createStudent() {
+        String name, semester, course;
+        
+        while (true) {
+            String id = validation.checkInputString("Enter id: ");
+            if (validation.checkIdExist(ls, id)) {
+                System.out.println("Code is existed try again!");
                 continue;
             }
-            System.out.print("Enter semester: ");
-            String semester = validation.checkInputString();
-            System.out.print("Enter name course: ");
-            String course = validation.checkInputCourse();
-            if (validation.checkStudent(list, id, name, semester, course)) {
-                list.add(new Student(id, name, semester, course));
-                count++;
-                System.out.println("Add student success.");
-                return;
+            
+            name = validation.checkInputString("Enter name: ");
+            semester = validation.checkInputString("Enter semester: ");
+            course = validation.checkInputCourse("Enter course: ");
+            
+            if (validation.checkStudent(ls, id, name, semester, course)) {
+                ls.add(new Student(id, name, semester, course));
+            } else {
+                System.out.println("It is existed");
             }
-            System.err.println("Duplicate.");
+            
+            if (ls.size() > 10) {
+                String yesorno = validation.inputYN("Do you want to continue(Y/N):");
+                if (yesorno.equals("N")) {
+                    break;
+                }
+            }
         }
     }
-    
-    ArrayList<Student> listStudentFindByName(ArrayList<Student> list){
+
+    ArrayList<Student> listStudentFindByName(ArrayList<Student> ls) {
         ArrayList<Student> listStudentFindByName = new ArrayList<>();
-        System.out.print("Enter name to search: ");
-        String name = validation.checkInputString();
-        for (Student student : list) {
+        String name = validation.checkInputString("Enter name to search: ");
+        for (Student student : ls) {
             if (student.getStudentName().contains(name)) {
                 listStudentFindByName.add(student);
             }
         }
         return listStudentFindByName;
     }
-    
-    void findAndSort(ArrayList<Student> list){
-        if (list.isEmpty()) {
+
+    void findAndSort() {
+        if (ls.isEmpty()) {
             System.out.println("List empty.");
             return;
         }
-        ArrayList<Student> listStudentFindByName = listStudentFindByName(list);
+        ArrayList<Student> listStudentFindByName = listStudentFindByName(ls);
         if (listStudentFindByName.isEmpty()) {
             System.err.println("Not exist. ");
         } else {
             Collections.sort(listStudentFindByName);
             System.out.printf("%-15s%-15s%-15s\n", "Student name", "semester", "Course Name");
             for (Student student : listStudentFindByName) {
-                student.print();
+                student.toString();
             }
         }
     }
-    
-    Student getStudentByListFound(ArrayList<Student> listStudentFindByName){
+
+    Student getStudentByListFound(ArrayList<Student> listStudentFindByName) {
         System.out.println("List student found: ");
-        int count = 1;
-        System.out.printf("%-10s%-15s%-15s%-15s\n", "Number", "Student name", 
+        int count = 0;
+        System.out.printf("%-10s%-15s%-15s%-15s\n", "Number", "Student name",
                 "semester", "Course Name");
         for (Student student : listStudentFindByName) {
             System.out.printf("%-10s%-15s%-15s%-15s\n", count, student.getStudentName(),
@@ -95,71 +96,66 @@ public class Manage {
         }
         System.out.print("Enter student: ");
         int choice = validation.checkInputLimit(1, listStudentFindByName.size());
-        return listStudentFindByName.get(choice-1);
+        return listStudentFindByName.get(choice);
     }
-    
-    ArrayList<Student> getListStudentById(ArrayList<Student> list, String id){
+
+    ArrayList<Student> getListStudentById(ArrayList<Student> ls, String id) {
         ArrayList<Student> getListStudentById = new ArrayList<>();
-        for (Student student : list) {
+        for (Student student : ls) {
             if (id.equalsIgnoreCase(student.getId())) {
                 getListStudentById.add(student);
             }
         }
         return getListStudentById;
     }
-    
-    void updateOrDelete(int count, ArrayList<Student> list){
-        if (list.isEmpty()) {
-            System.err.println("List empty.");
-            return;
-        }
-        System.out.print("Enter id: ");
-        String id = validation.checkInputString();
-        ArrayList<Student> listStudentFindByName = getListStudentById(list, id);
-        
-        if (listStudentFindByName.isEmpty()) {
-            System.err.println("Not found");
-            return;
+
+    void updateOrDelete() {
+        String id = validation.checkInputString("Enter id: ");
+        ArrayList<Student> getListStudentById = getListStudentById(ls, id);
+        if (getListStudentById.isEmpty()) {
+            System.out.println("Not found.");
         } else {
-            Student student = getStudentByListFound(listStudentFindByName);
-            System.out.print("Do you want to update (U) or delete (D) student: ");
-            if (validation.checkInputUD()) {
-                System.out.print("Enter name student: ");
-                String name = validation.checkInputString();
-                System.out.print("Enter semester: ");
-                String semester = validation.checkInputString();
-                System.out.print("Enter name course: ");
-                String course = validation.checkInputCourse();
-                
-                if (validation.checkStudent(list, id, name, semester, course)) {
-                    student.setStudentName(name);
-                    student.setSemester(semester);
-                    student.setCourseName(course);
-                    System.err.println("Update success. ");
+            Student student = getStudentByListFound(getListStudentById);
+            if (validation.checkInputUD("Do you want update or delete? ")) {
+                while (true) {
+                    String name = validation.checkInputString("Enter name: ");
+                    String semester = validation.checkInputString("Enter semester: ");
+                    String course = validation.checkInputCourse("Enter course");
+                    if (!validation.checkStudent(ls, id, name, semester, course)) {
+                        System.out.println("Duplicate");
+                    } else {
+                        if (!name.equalsIgnoreCase(student.getStudentName())) {
+                            for (Student change_name : ls) {
+                                if (change_name.getId().equals(id)) {
+                                    change_name.setStudentName(name);
+                                }
+                            }
+                        }
+                        student.setId(id);
+                        student.setStudentName(name);
+                        student.setSemester(semester);
+                        student.setCourseName(course);
+                        return;
+                    }
                 }
-                return;
             } else {
-                list.remove(student);
-                count--;
-                System.err.println("Delete success.");
-                return;
-            }       
+                ls.remove(student);
+            }
         }
     }
-    
-    void report(ArrayList<Student> list){
-        if (list.isEmpty()) {
+
+    void report() {
+        if (ls.isEmpty()) {
             System.err.println("List empty");
             return;
         }
-        
-        ArrayList<Report> lr = new ArrayList<>();
+
         int size = lr.size();
-        
+
         for (int i = 0; i < size; i++) {
-            int total=0;
-            for (Student student1 : list) {
-                for (Student student2 : list) {
+            int total = 0;
+            for (Student student1 : ls) {
+                for (Student student2 : ls) {
                     if (student1.getId().equalsIgnoreCase(student2.getId())
                             && student1.getCourseName().equalsIgnoreCase(student2.getCourseName())) {
                         total++;
@@ -170,10 +166,19 @@ public class Manage {
                 }
             }
         }
-        
-        for (int i = 0; i < lr.size(); i++) {
-            System.out.printf("%-15s|%-15s|%-5d\n", lr.get(i).getStudentName(), lr.get(i).getCourseName(),
-                            lr.get(i).getTotalCourse());
+
+        for (Report report : lr) {
+            System.out.println(report);
+        }
+    }
+
+    void displayAll() {
+        display(ls);
+    }
+
+    void display(ArrayList ls) {
+        for (Object o : ls) {
+            System.out.println(o);
         }
     }
 }
