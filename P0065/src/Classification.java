@@ -109,6 +109,8 @@ public class Classification {
             System.out.println("------Student " + (++i) + " info-------");
             System.out.println("Name: " + o.name);
             System.out.println("Classes: " + o.Classes);
+//            double avg = (o.getChemistryPoint() + o.getMathPoint() + o.getPhysicsPoint()) / 3.0;
+//            System.out.println("AVG: " + String.format("%.1f", avg)); // Sử dụng String.format để định dạng AVG
             System.out.println("AVG: " + (o.getChemistryPoint() + o.getMathPoint() + o.getPhysicsPoint())/3);
             System.out.println("Type: " + o.getType());
         }
