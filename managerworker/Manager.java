@@ -5,8 +5,9 @@
  */
 package managerworker;
 
-import java.time.LocalDate;
+//import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 /**
@@ -66,6 +67,10 @@ public class Manager {
                 update = o.getSalary() - money;
                 status = "Down";
             }
+            if (o.getSalary() < money) {
+                update = 0;
+                status = "Down";
+            }
         }
         o.setSalary(update);
         shList.add(new SalaryHistory(id, o.getName(), o.getAge(), o.getSalary(), status, java.time.LocalDate.now()));
@@ -88,12 +93,15 @@ public class Manager {
                 break;
             case 2:
                 System.out.println("------- Up/Down Salary --------");
+                System.out.println("Code\tName\tAge\tSalary\tStatus\tDate");
                 break;
             case 3:
                 System.out.println("------- Up/Down Salary --------");
+                System.out.println("Code\tName\tAge\tSalary\tStatus\tDate");
                 break;
             case 4:
                 System.out.println("---------Display Information Salary-------------");
+                System.out.println("Code\tName\tAge\tSalary\tWork Location");
                 break;
         }
     }
