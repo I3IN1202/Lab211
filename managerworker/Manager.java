@@ -8,7 +8,7 @@ package managerworker;
 //import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Scanner;
+
 
 /**
  *
@@ -16,7 +16,6 @@ import java.util.Scanner;
  */
 public class Manager {
 
-    private Scanner sc = new Scanner(System.in);
     Validation validation = new Validation();
     ArrayList<Worker> wList = new ArrayList<>();
     ArrayList<SalaryHistory> shList = new ArrayList<>();
@@ -40,7 +39,12 @@ public class Manager {
         age = validation.checkInput("Enter worker age: ", 18, 50);
         salary = validation.checkDouble("Enter worker salary: ", 0, Double.MAX_VALUE);
         workLocation = validation.inputString("Enter work Location: ");
-        wList.add(new Worker(id, name, age, salary, workLocation));
+        if (!validation.checkWorkerExist(wList, id, name, age, age, workLocation)) {
+            System.err.println("Duplicate!");
+        } else {
+             wList.add(new Worker(id, name, age, salary, workLocation));
+             System.out.println("Add success");
+        } 
     }
 
     boolean checkExistedCode(ArrayList<Worker> wList, String id) {
@@ -106,7 +110,8 @@ public class Manager {
         }
     }
 
-    void getInformationSalary() {
+    void getInformationSalary(){
+        Collections.sort(shList);
         display(shList);
     }
 
@@ -116,7 +121,14 @@ public class Manager {
 
     void display(ArrayList list) {
         for (Object o : list) {
-            System.out.println(o);
+            System.out.println(o.toString());
         }
     }
+    
+    //get current date 
+//    public static String getCurrentDate() {
+//        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+//        Calendar calendar = Calendar.getInstance();
+//        return dateFormat.format(calendar.getTime());
+//    }
 }
