@@ -11,7 +11,7 @@ import java.time.LocalDate;
  *
  * @author ADMIN
  */
-public class SalaryHistory {
+public class SalaryHistory  implements Comparable<SalaryHistory> {
     private String id;
     private String name;
     private int age;
@@ -80,7 +80,12 @@ public class SalaryHistory {
     }
 
     @Override
+    public int compareTo(SalaryHistory t) {
+        return t.id.compareTo(this.id);
+    }
+
+    @Override
     public String toString() {
-        return String.format("%s | %-7.5s | %2d | %-7.5f | %-4s | %-10s", id,name,age,updateSalary,status,date);
-    }   
+        return String.format("%s | %-7.5s | %2d | %-7.1f | %-4s | %-10s", id,name,age,updateSalary,status,date);
+    } 
 }
