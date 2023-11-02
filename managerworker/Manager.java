@@ -114,8 +114,9 @@ public class Manager {
         Collections.sort(shList);
         display(shList);
     }
-
+    
     void displayAll() {
+        Collections.sort(wList);
         display(wList);
     }
 
