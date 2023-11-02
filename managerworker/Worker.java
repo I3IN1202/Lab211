@@ -9,7 +9,7 @@ package managerworker;
  *
  * @author ADMIN
  */
-public class Worker {
+public class Worker implements Comparable<Worker> {
 
     private String id;
     private String name;
@@ -70,7 +70,12 @@ public class Worker {
     }
 
     @Override
+    public int compareTo(Worker o) {
+        return this.id.compareTo(o.id);
+    }
+
+    @Override
     public String toString() {
-        return String.format("%s | %-15s | %2d | %-7.1f | %-15s ", id, name, age, salary,workLocation );
+        return String.format("%s | %-10s | %2d | %-7.1f | %-15s ", id, name, age, salary,workLocation );
     }
 }
