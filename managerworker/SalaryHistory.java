@@ -11,7 +11,7 @@ import java.time.LocalDate;
  *
  * @author ADMIN
  */
-public class SalaryHistory  implements Comparable<SalaryHistory> {
+public class SalaryHistory implements Comparable<SalaryHistory> {
     private String id;
     private String name;
     private int age;
@@ -81,7 +81,7 @@ public class SalaryHistory  implements Comparable<SalaryHistory> {
 
     @Override
     public int compareTo(SalaryHistory t) {
-        return t.id.compareTo(this.id);
+        return this.id.compareTo(t.id);
     }
 
     @Override
