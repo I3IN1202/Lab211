@@ -57,7 +57,6 @@ public class Manager {
         System.out.printf("Total: %.2f\n", total);
     }
 
-    //lỗi delete
     void deleteExpense() {
         while (true) {
             int id = validation.inputInt("Enter id: ");
