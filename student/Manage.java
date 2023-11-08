@@ -82,7 +82,7 @@ public class Manage {
 
     Student getStudentByListFound(ArrayList<Student> listStudentFindByName) {
         System.out.println("====List student found====");
-        int count = 0;
+        int count = 1;
         System.out.printf("%-10s%-15s%-15s%-15s\n", "Number", "Student name",
                 "semester", "Course Name");
         for (Student student : listStudentFindByName) {
@@ -90,9 +90,9 @@ public class Manage {
                     student.getSemester(), student.getCourseName());
             count++;
         }
-        System.out.print("Enter student: ");
-        int choice = validation.checkInputLimit(0, listStudentFindByName.size());
-        return listStudentFindByName.get(choice);
+        System.out.print("Enter number student: ");
+        int choice = validation.checkInputLimit(1, listStudentFindByName.size());
+        return listStudentFindByName.get(choice-1);
     }
 
     ArrayList<Student> getListStudentById(ArrayList<Student> ls, String id) {
@@ -113,11 +113,11 @@ public class Manage {
             return;
         } else {
             Student student = getStudentByListFound(listStudentFindByName);
-            if (validation.checkInputUD("Do you want update or delete? ")) {
+            if (validation.checkInputUD("Do you want update or delete(u/d)? ")) {
                 while (true) {
                     String name = validation.checkInputString("Enter name: ");
                     String semester = validation.checkInputString("Enter semester: ");
-                    String course = validation.checkInputCourse("Enter course");
+                    String course = validation.checkInputCourse("Enter course: ");
                     if (!validation.checkStudent(ls, id, name, semester, course)) {
                         System.out.println("Duplicate");
                     } else {
