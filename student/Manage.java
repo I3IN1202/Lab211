@@ -7,13 +7,13 @@ package student;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
 
 /**
  *
  * @author ADMIN
  */
 public class Manage {
-
     ArrayList<Report> lr = new ArrayList<>();
     ArrayList<Student> ls = new ArrayList<>();
     Validation validation = new Validation();
@@ -57,13 +57,12 @@ public class Manage {
         String name = validation.checkInputString("Enter name to search: ");
         for (Student student : listStudent) {
             if (student.getStudentName().contains(name)) {
-                System.out.println("ok");
                 listStudentFindByName.add(student);
             }
         }
         return listStudentFindByName;
     }
-    //không in ra list
+
     void findAndSort() {
         if (ls.isEmpty()) {
             System.out.println("List empty.");
@@ -73,17 +72,17 @@ public class Manage {
         if (listStudentFindByName.isEmpty()) {
             System.err.println("Not exist. ");
         } else {
-            Collections.sort(listStudentFindByName);
+//            Collections.sort(listStudentFindByName);
             System.out.printf("%-15s%-15s%-15s\n", "Student name", "semester", "Course Name");
             for (Student student : listStudentFindByName) {
-                student.toString();
+                System.out.println(student.toString());;
             }
         }
     }
 
     Student getStudentByListFound(ArrayList<Student> listStudentFindByName) {
         System.out.println("List student found: ");
-        int count = 0;
+        int count = 1;
         System.out.printf("%-10s%-15s%-15s%-15s\n", "Number", "Student name",
                 "semester", "Course Name");
         for (Student student : listStudentFindByName) {
@@ -108,11 +107,11 @@ public class Manage {
 
     void updateOrDelete() {
         String id = validation.checkInputString("Enter id: ");
-        ArrayList<Student> getListStudentById = getListStudentById(ls, id);
-        if (getListStudentById.isEmpty()) {
+        ArrayList<Student> listStudentFindByName = listStudentFindByName(ls);
+        if (listStudentFindByName.isEmpty()) {
             System.out.println("Not found.");
         } else {
-            Student student = getStudentByListFound(getListStudentById);
+            Student student = getStudentByListFound(listStudentFindByName);
             if (validation.checkInputUD("Do you want update or delete? ")) {
                 while (true) {
                     String name = validation.checkInputString("Enter name: ");
@@ -164,9 +163,8 @@ public class Manage {
                 }
             }
         }
-
+        System.out.println("==== Report ====");
         for (Report report : lr) {
-            System.out.println("----Report----");
             System.out.println(report);
         }
     }
@@ -174,16 +172,17 @@ public class Manage {
     void test(){
         ls.add(new Student("1", "Pham Hoa", "Spring", "java"));
         ls.add(new Student("2", "Do Hiep", "Summer", ".net"));
-        ls.add(new Student("3", "Nguyen huy", "Spring", "c/c++"));
-        ls.add(new Student("4", "Pham uyên", "Spring", "java"));
+        ls.add(new Student("4", "Nguyen huy", "Spring", "c/c++"));
+        ls.add(new Student("3", "Pham uyên", "Spring", "java"));
         ls.add(new Student("5", "Do Quang", "Summer", ".net"));
-        ls.add(new Student("6", "Nguyen vanh", "Spring", "c/c++"));
+        ls.add(new Student("9", "Nguyen vanh", "Spring", "c/c++"));
         ls.add(new Student("7", "Pham Trường", "Spring", "java"));
         ls.add(new Student("8", "Do hải", "Summer", ".net"));
-        ls.add(new Student("9", "Nguyen anh", "Spring", "c/c++"));
+        ls.add(new Student("6", "Nguyen anh", "Spring", "c/c++"));
     }
 
     void displayAll() {
+        System.out.printf("%-5s%-15s%-15s%-15s\n", "ID","Student name", "semester", "Course Name");
         display(ls);
     }
 
