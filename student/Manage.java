@@ -82,8 +82,8 @@ public class Manage {
 
     Student getStudentByListFound(ArrayList<Student> listStudentFindByName) {
         System.out.println("====List student found====");
-        int count = 1;
-        System.out.printf("%-10s%-15s%-15s%-15s\n", "Number", "Student name",
+        int count = 0;
+        System.out.printf("%-10s%-15s%-15s%-15s\n", "ID", "Student name",
                 "semester", "Course Name");
         for (Student student : listStudentFindByName) {
             System.out.printf("%-10s%-15s%-15s%-15s\n", count, student.getStudentName(),
