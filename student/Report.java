@@ -49,6 +49,6 @@ public class Report {
 
     @Override
     public String toString() {
-        return  String.format("%-15s|%-15s|%-5d\n", studentName, courseName, totalCourse);
+        return  String.format("%-15s|%-15s|%-15s\n", studentName, courseName, totalCourse);
     }
 }
