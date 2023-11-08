@@ -120,9 +120,9 @@ public class Validation {
     for (Student student : ls) {
       if (id.equalsIgnoreCase(student.getId())
               || !name.equalsIgnoreCase(student.getStudentName())) {
-          return true;
+          return false;
       }
     }
-    return false;
+    return true;
   }
 }
