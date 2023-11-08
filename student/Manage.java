@@ -70,9 +70,9 @@ public class Manage {
         }
         ArrayList<Student> listStudentFindByName = listStudentFindByName(ls);
         if (listStudentFindByName.isEmpty()) {
-            System.err.println("Not exist. ");
+            System.err.print("Not exist. ");
         } else {
-//            Collections.sort(listStudentFindByName);
+            Collections.sort(listStudentFindByName);
             System.out.printf("%-15s%-15s%-15s\n", "Student name", "semester", "Course Name");
             for (Student student : listStudentFindByName) {
                 System.out.println(student.toString());;
@@ -81,7 +81,7 @@ public class Manage {
     }
 
     Student getStudentByListFound(ArrayList<Student> listStudentFindByName) {
-        System.out.println("List student found: ");
+        System.out.println("====List student found====");
         int count = 1;
         System.out.printf("%-10s%-15s%-15s%-15s\n", "Number", "Student name",
                 "semester", "Course Name");
@@ -107,9 +107,10 @@ public class Manage {
 
     void updateOrDelete() {
         String id = validation.checkInputString("Enter id: ");
-        ArrayList<Student> listStudentFindByName = listStudentFindByName(ls);
+        ArrayList<Student> listStudentFindByName = getListStudentById(ls,id);
         if (listStudentFindByName.isEmpty()) {
             System.out.println("Not found.");
+            return;
         } else {
             Student student = getStudentByListFound(listStudentFindByName);
             if (validation.checkInputUD("Do you want update or delete? ")) {
