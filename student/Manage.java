@@ -28,12 +28,17 @@ public class Manage {
     }
 
     void createStudent() {
-        String name, semester, course;
+        String name, semester, course, id;
         
         while (true) {
             
-            String id = validation.checkInputString("Enter id: ");
+            id = validation.checkInputString("Enter id: ");
             name = validation.checkInputString("Enter name: ");
+            if (!validation.checkIdExist(ls, id, name)) {
+                System.out.println("Id has exist student. Please enter again!");
+                continue;
+            }
+            
             semester = validation.checkInputString("Enter semester: ");
             course = validation.checkInputCourse("Enter course: ");
             
@@ -46,6 +51,7 @@ public class Manage {
             if (ls.size() >= 10) {
                 String yesorno = validation.inputYN("Do you want to continue(Y/N):");
                 if (yesorno.equals("N")) {
+                    System.out.println("Add success!");
                     break;
                 }
             }
@@ -165,6 +171,7 @@ public class Manage {
             }
         }
         System.out.println("==== Report ====");
+        System.out.printf("%-15s%-15s%-15s\n","Name","Course","Total Course");
         for (Report report : lr) {
             System.out.println(report);
         }
