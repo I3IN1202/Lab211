@@ -31,19 +31,19 @@ public class Manage {
         String name, semester, course, id;
         
         while (true) {
-            
             id = validation.checkInputString("Enter id: ");
             name = validation.checkInputString("Enter name: ");
-            if (!validation.checkIdExist(ls, id, name)) {
-                System.out.println("Id has exist student. Please enter again!");
-                continue;
-            }
-            
+//            if (!validation.checkIdExist(ls, id, name)) {
+//                System.out.println("Name fail. Please enter again!");
+//                continue;
+//            }
             semester = validation.checkInputString("Enter semester: ");
             course = validation.checkInputCourse("Enter course: ");
             
             if (validation.checkStudent(ls, id, name, semester, course)) {
                 ls.add(new Student(id, name, semester, course));
+                System.out.println("Add success!");
+                break;
             } else {
                 System.out.println("It is existed");
             }
@@ -116,7 +116,6 @@ public class Manage {
         ArrayList<Student> listStudentFindByName = getListStudentById(ls,id);
         if (listStudentFindByName.isEmpty()) {
             System.out.println("Not found.");
-            return;
         } else {
             Student student = getStudentByListFound(listStudentFindByName);
             if (validation.checkInputUD("Do you want update or delete(u/d)? ")) {
@@ -143,6 +142,7 @@ public class Manage {
                 }
             } else {
                 ls.remove(student);
+                System.out.println("Delete successful!");
             }
         }
     }
