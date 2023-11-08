@@ -31,17 +31,18 @@ public class Validation {
         }
     }
     
-    String checkInputString(String msg){
-        System.out.println(msg);
-        while (true){
-            String result = sc.nextLine().trim();
-            if (result.isEmpty()){
-                System.err.println("Not empty!");
-                System.out.println("Enter again: ");
-            } else {
-                return result;
+    String checkInputString(String msg) {
+        String input;
+        do {
+            System.out.print(msg);
+            input = sc.nextLine();
+            if(input.isEmpty()) {
+                System.out.println("Input cannot be empty. Try again!");
+                continue;
             }
-        }
+            break;
+        } while (true);
+        return input;
     }
     
     String inputYN(String msg) {
@@ -115,9 +116,10 @@ public class Validation {
         return true;
     }
     
-    boolean checkIdExist(ArrayList<Student> ls ,String id) {
+    boolean checkIdExist(ArrayList<Student> ls ,String id, String name) {
     for (Student student : ls) {
-      if (id.equalsIgnoreCase(student.getId())) {
+      if (id.equalsIgnoreCase(student.getId())
+              || !name.equalsIgnoreCase(student.getStudentName())) {
           return true;
       }
     }
